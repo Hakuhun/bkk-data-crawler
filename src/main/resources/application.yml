@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: bkk-data-crawler
+  main:
+    banner-mode: "off"
+
+management:
+  server:
+    port: 9001
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+server:
+  port: 8001
+
+scheulder:
+  bkkkScheulder:  "0 0/5 0 ? * * *"
+  weatherScheduler: "0 0 0/2 ? * * *"
+  testScheulder: "0 * * ? * *"
