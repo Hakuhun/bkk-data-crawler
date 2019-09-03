@@ -35,9 +35,9 @@ public class WeatherCrawlerScheulder {
         log.info(weathers);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writeValue(new File("/weatherproperties.json"), weathers);
+            objectMapper.writeValue(new File("${weather.pathToFile}"), weathers);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 

@@ -48,3 +48,4 @@ weather:
   chunkHighSize: 6
   apiUrl: "http://api.openweathermap.org/data/2.5"
   apiKey: "4bd87942ef4b25b2f69f19a086353f49"
+  pathToFile: "/DEV/weatherproperties.json"

@@ -1,11 +1,8 @@
 package hu.oe.bakonyi.bkk.bkkcrawler.businesslogic;
 
-import hu.oe.bakonyi.bkk.bkkcrawler.businesslogic.model.Chunk;
-import hu.oe.bakonyi.bkk.bkkcrawler.businesslogic.model.Location;
 import hu.oe.bakonyi.bkk.bkkcrawler.client.WeatherClient;
 import hu.oe.bakonyi.bkk.bkkcrawler.configuration.WeatherConfiguration;
 import hu.oe.bakonyi.bkk.bkkcrawler.model.weather.Model200;
-import net.sf.geographiclib.Geodesic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
