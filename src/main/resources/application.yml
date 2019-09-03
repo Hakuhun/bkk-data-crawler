@@ -22,8 +22,29 @@ management:
 
 server:
   port: 8001
+  servlet:
+    application-display-name: "BKK"
+    context-path: /bkk
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
 
 scheulder:
   bkkkScheulder:  "0 0/5 0 ? * * *"
   weatherScheduler: "0 0 0/2 ? * * *"
   testScheulder: "0 * * ? * *"
+
+weather:
+  bottomLeftLat: 47.1523107
+  bottomLeftLong: 18.8460594
+  topRightLat: 47.6837053
+  topRightLong: 19.391385500000002
+  chunkWideSize: 10
+  chunkHighSize: 6
+  apiUrl: "http://api.openweathermap.org/data/2.5"
+  apiKey: "4bd87942ef4b25b2f69f19a086353f49"
