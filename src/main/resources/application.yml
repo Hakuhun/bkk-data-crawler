@@ -36,8 +36,9 @@ feign:
 
 scheulder:
   bkkkScheulder:  "0 0/5 0 ? * * *"
-  weatherScheduler: "0 0 0/2 ? * * *"
-  testScheulder: "0 * * ? * *"
+  weatherScheduler: "0 0 * ? * *"
+  #testScheulder: "0 * * ? * *"
+  testScheulder: "0 */5 * ? * *"
 
 weather:
   bottomLeftLat: 47.1523107

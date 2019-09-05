@@ -4,8 +4,16 @@ import hu.oe.bakonyi.bkk.bkkcrawler.client.WeatherClient;
 import hu.oe.bakonyi.bkk.bkkcrawler.configuration.WeatherConfiguration;
 import hu.oe.bakonyi.bkk.bkkcrawler.model.weather.Model200;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
 import java.util.*;
 
 @Service
@@ -16,6 +24,13 @@ public class MapDetailsService {
 
     @Autowired
     WeatherClient client;
+
+    public Instant getLastModoficationTime() throws IOException {
+        File weatherFile = new File(configuration.getPathToFile());
+        FileTime creationTime;
+        BasicFileAttributes attributes = Files.readAttributes(weatherFile.toPath(),BasicFileAttributes.class, LinkOption.NOFOLLOW_LINKS);
+        return attributes.creationTime().toInstant();
+    }
 
     public List<Model200> calculateChunks(){
         List<Model200> weathers = new ArrayList<>();
