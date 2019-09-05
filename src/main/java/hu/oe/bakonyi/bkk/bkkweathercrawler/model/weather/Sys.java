@@ -1,11 +1,10 @@
-package hu.oe.bakonyi.bkk.bkkcrawler.model.weather;
+package hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Data
 @Validated

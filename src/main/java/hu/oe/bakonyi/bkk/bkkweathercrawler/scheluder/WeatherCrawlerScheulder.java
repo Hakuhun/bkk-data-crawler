@@ -1,9 +1,9 @@
-package hu.oe.bakonyi.bkk.bkkcrawler.scheluder;
+package hu.oe.bakonyi.bkk.bkkweathercrawler.scheluder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.oe.bakonyi.bkk.bkkcrawler.businesslogic.MapDetailsService;
-import hu.oe.bakonyi.bkk.bkkcrawler.configuration.WeatherConfiguration;
-import hu.oe.bakonyi.bkk.bkkcrawler.model.weather.Model200;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.businesslogic.MapDetailsService;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.WeatherConfiguration;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Model200;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -1,4 +1,4 @@
-package hu.oe.bakonyi.bkk.bkkcrawler.configuration;
+package hu.oe.bakonyi.bkk.bkkweathercrawler.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

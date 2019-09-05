@@ -1,10 +1,9 @@
-package hu.oe.bakonyi.bkk.bkkcrawler.businesslogic;
+package hu.oe.bakonyi.bkk.bkkweathercrawler.businesslogic;
 
-import hu.oe.bakonyi.bkk.bkkcrawler.client.WeatherClient;
-import hu.oe.bakonyi.bkk.bkkcrawler.configuration.WeatherConfiguration;
-import hu.oe.bakonyi.bkk.bkkcrawler.model.weather.Model200;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.client.WeatherClient;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.WeatherConfiguration;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Model200;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

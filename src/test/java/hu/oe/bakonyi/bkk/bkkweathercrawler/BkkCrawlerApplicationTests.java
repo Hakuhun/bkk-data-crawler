@@ -1,4 +1,4 @@
-package hu.oe.bakonyi.bkk.bkkcrawler;
+package hu.oe.bakonyi.bkk.bkkweathercrawler;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,24 +1,20 @@
-package hu.oe.bakonyi.bkk.bkkcrawler.model.weather;
+package hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.Objects;
 
-/**
- * Wind
- */
-@Validated
 @Data
+@Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-09-02T19:31:53.527Z[GMT]")
-public class Wind   {
-  @JsonProperty("speed")
-  private BigDecimal speed = null;
+public class Snow   {
+  @JsonProperty("3h")
+  private BigDecimal _3h = null;
 
-  @JsonProperty("deg")
-  private Integer deg = null;
-
+  public Snow _3h(BigDecimal _3h) {
+    this._3h = _3h;
+    return this;
+  }
 }
