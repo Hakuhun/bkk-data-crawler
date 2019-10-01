@@ -35,10 +35,7 @@ feign:
         loggerLevel: basic
 
 scheulder:
-  bkkkScheulder:  "0 0/5 0 ? * * *"
   weatherScheduler: "0 0 * ? * *"
-  #testScheulder: "0 * * ? * *"
-  testScheulder: "0 */5 * ? * *"
 
 weather:
   bottomLeftLat: 47.1523107
@@ -49,4 +46,4 @@ weather:
   chunkHighSize: 6
   apiUrl: "http://api.openweathermap.org/data/2.5"
   apiKey: "4bd87942ef4b25b2f69f19a086353f49"
-  pathToFile: "/DEV/weatherproperties.json"
+  pathToFile: "/weatherproperties.json"
