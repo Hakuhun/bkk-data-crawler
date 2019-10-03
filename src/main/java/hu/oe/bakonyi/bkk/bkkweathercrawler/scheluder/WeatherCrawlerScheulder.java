@@ -32,7 +32,6 @@ public class WeatherCrawlerScheulder {
         download();
     }
 
-    @Transient
     @Scheduled(cron = "${scheulder.weatherScheduler}")
     public void downloadWeatherData(){
         log.info("Kezdés: "+Instant.now().getEpochSecond());
