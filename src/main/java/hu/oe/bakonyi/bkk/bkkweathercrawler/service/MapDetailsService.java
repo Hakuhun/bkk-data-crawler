@@ -1,8 +1,11 @@
-package hu.oe.bakonyi.bkk.bkkweathercrawler.businesslogic;
+package hu.oe.bakonyi.bkk.bkkweathercrawler.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.client.WeatherClient;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.WeatherConfiguration;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Coord;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Model200;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.repository.Model200Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,12 @@ public class MapDetailsService {
     @Autowired
     WeatherClient client;
 
+    @Autowired
+    ObjectMapper mapper;
+
+    @Autowired
+    Model200Repository repository;
+
     public Instant getLastModoficationTime() throws IOException {
         File weatherFile = new File(configuration.getPathToFile());
         FileTime creationTime;
@@ -33,15 +42,23 @@ public class MapDetailsService {
 
     public List<Model200> calculateChunks(){
         List<Model200> weathers = new ArrayList<>();
+        List<Coord> coords = new ArrayList<>();
 
         for (int i = 0; i < configuration.getChunkWideSize(); i++){
             double lat = configuration.getBottomLeftLat() + (i * getDiffLat());
             for (int j = 0; j <configuration.getChunkHighSize(); j++){
                 double lng = configuration.getBottomLeftLong() + (j * getDiffLong());
-                //Location loc = new Location(lat, lng);
                 Model200 weather = client.getWeather("metric", configuration.getApiKey(), lat, lng);
                 weathers.add(weather);
+                coords.add(weather.getCoord());
+                repository.save(weather);
             }
+        }
+
+        try {
+            mapper.writeValue(new File("weathercoords.json"), coords);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return weathers;

@@ -1,16 +1,17 @@
 package hu.oe.bakonyi.bkk.bkkweathercrawler.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.oe.bakonyi.bkk.bkkweathercrawler.businesslogic.MapDetailsService;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Coord;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.repository.Model200Repository;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.service.DefaultCoordinateService;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.service.MapDetailsService;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.WeatherConfiguration;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Model200;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
@@ -29,12 +30,30 @@ public class WeatherController {
     @Autowired
     WeatherConfiguration configuration;
 
+    @Autowired
+    DefaultCoordinateService coordinateService;
+
+    @Autowired
+    Model200Repository repository;
+
     ObjectMapper mapper = new ObjectMapper();
 
-    @GetMapping("/weather")
+    @PostMapping("/weather")
+    public ResponseEntity<Model200> getWeatherByCoordinate(@RequestBody Coord coordinate){
+        Coord nearestCoord = coordinateService.getNearestCoordToChunk(coordinate);
+        Model200 weather1 = repository.findByCoordLatAndCoordLon(nearestCoord.getLat(), nearestCoord.getLon());
+
+        if (weather1 != null){
+            return ResponseEntity.ok(weather1);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/weathers")
     public ResponseEntity getWeathers(@RequestParam("time") String time){
         try {
-            Instant nodeFileTime = Instant.ofEpochSecond(Long.valueOf(time));
+            Instant nodeFileTime = Instant.ofEpochSecond(Long.parseLong(time));
             if (nodeFileTime.isBefore(service.getLastModoficationTime()))
             {
                 List<Model200> list = Arrays.asList(mapper.readValue(new File(configuration.getPathToFile()), Model200[].class));

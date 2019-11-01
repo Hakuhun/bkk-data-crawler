@@ -2,6 +2,7 @@ package hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.data.redis.core.index.Indexed;
 import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;

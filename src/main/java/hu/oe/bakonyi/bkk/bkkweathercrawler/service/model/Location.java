@@ -1,4 +1,4 @@
-package hu.oe.bakonyi.bkk.bkkweathercrawler.businesslogic.model;
+package hu.oe.bakonyi.bkk.bkkweathercrawler.service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

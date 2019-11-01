@@ -1,7 +1,7 @@
 package hu.oe.bakonyi.bkk.bkkweathercrawler.scheluder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.oe.bakonyi.bkk.bkkweathercrawler.businesslogic.MapDetailsService;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.service.MapDetailsService;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.WeatherConfiguration;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Model200;
 import lombok.extern.log4j.Log4j2;
@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.beans.Transient;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
@@ -30,6 +29,7 @@ public class WeatherCrawlerScheulder {
     public void initialScheulde(){
         log.info("Inicializáló letöltés: ");
         download();
+
     }
 
     @Scheduled(cron = "${scheulder.weatherScheduler}")
