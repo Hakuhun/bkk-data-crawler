@@ -44,7 +44,7 @@ public class WeatherController {
         Model200 weather1 = repository.findByCoordLatAndCoordLon(nearestCoord.getLat(), nearestCoord.getLon());
 
         if (weather1 != null){
-            return ResponseEntity.ok(weather1);
+                return ResponseEntity.ok(weather1);
         }else{
             return ResponseEntity.notFound().build();
         }
