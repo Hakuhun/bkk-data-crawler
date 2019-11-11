@@ -35,7 +35,17 @@ feign:
       default:
         connectTimeout: 5000
         readTimeout: 5000
-        loggerLevel: basic
+        loggerLevel: HEADERS
+
+logging:
+  level:
+    hu:
+      oe:
+        bakonyi:
+          bkk:
+            bkkweathercrawler:
+              client:
+                WeatherClient: DEBUG
 
 scheulder:
   weatherScheduler: "0 0 * ? * *"
@@ -50,3 +60,6 @@ weather:
   apiUrl: "http://api.openweathermap.org/data/2.5"
   apiKey: "4bd87942ef4b25b2f69f19a086353f49"
   pathToFile: "weatherproperties.json"
+
+api:
+  key: "2e825506-7aea-4fe1-ad48-5fa87b4ce726"

@@ -1,5 +1,6 @@
 package hu.oe.bakonyi.bkk.bkkweathercrawler;
 
+import feign.Logger;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.RedisReaderConverter;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.RedisWritingConverter;
 import org.springframework.boot.SpringApplication;
@@ -27,4 +28,6 @@ public class BkkCrawlerApplication {
 														 RedisReaderConverter bytesToOffset) {
 		return new RedisCustomConversions(Arrays.asList(offsetToBytes, bytesToOffset));
 	}
+
+
 }

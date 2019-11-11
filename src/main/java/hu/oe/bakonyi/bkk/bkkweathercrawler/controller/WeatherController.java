@@ -38,7 +38,7 @@ public class WeatherController {
 
     ObjectMapper mapper = new ObjectMapper();
 
-    @PostMapping("/weather")
+    @PostMapping("/prod/weather")
     public ResponseEntity<Model200> getWeatherByCoordinate(@RequestBody Coord coordinate){
         Coord nearestCoord = coordinateService.getNearestCoordToChunk(coordinate);
         Model200 weather1 = repository.findByCoordLatAndCoordLon(nearestCoord.getLat(), nearestCoord.getLon());
@@ -50,7 +50,7 @@ public class WeatherController {
         }
     }
 
-    @GetMapping("/weathers")
+    @GetMapping("/Dev/weathers")
     public ResponseEntity getWeathers(@RequestParam("time") String time){
         try {
             Instant nodeFileTime = Instant.ofEpochSecond(Long.parseLong(time));

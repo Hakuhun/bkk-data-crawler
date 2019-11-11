@@ -1,5 +1,6 @@
 package hu.oe.bakonyi.bkk.bkkweathercrawler.client;
 
+import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.WeatherClientConfig;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Coord;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Model200;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(
     name="weather-api",
-    url = "${weather.apiUrl}"
+    url = "${weather.apiUrl}",
+    configuration = WeatherClientConfig.class
 )
 public interface WeatherClient {
 
