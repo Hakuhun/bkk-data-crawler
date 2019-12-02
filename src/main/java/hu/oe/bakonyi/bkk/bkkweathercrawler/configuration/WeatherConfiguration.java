@@ -19,4 +19,6 @@ public class WeatherConfiguration {
     private int chunkWideSize;
     private int chunkHighSize;
     private String pathToFile;
+
+    private String secondaryApiKey;
 }

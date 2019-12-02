@@ -64,6 +64,8 @@ weather:
   apiUrl: "http://api.openweathermap.org/data/2.5"
   apiKey: "4bd87942ef4b25b2f69f19a086353f49"
   pathToFile: "weatherproperties.json"
+  secondaryApiKey: "9deea3d8414e4161803ba12d97024483"
+  secondaryBaseUrl: "https://api.weatherbit.io/v2.0"
 
 api:
   key: "2e825506-7aea-4fe1-ad48-5fa87b4ce726"

@@ -1,16 +1,17 @@
 package hu.oe.bakonyi.bkk.bkkweathercrawler.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.client.SecondaryWeatherSourceClient;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.client.WeatherClient;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.WeatherConfiguration;
-import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Coord;
-import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Model200;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.*;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.repository.Model200Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -26,6 +27,9 @@ public class MapDetailsService {
 
     @Autowired
     WeatherClient client;
+
+    @Autowired
+    SecondaryWeatherSourceClient secondaryClient;
 
     @Autowired
     ObjectMapper mapper;
@@ -55,6 +59,25 @@ public class MapDetailsService {
             }
         }
 
+        double precip = 0.0;
+        double snow = 0.0;
+
+        for (int i = 0; i < weathers.size(); i++){
+            Model200 currentWeather = weathers.get(i);
+            if(i % 3 == 0){
+                double lat = currentWeather.getCoord().getLat();
+                double lng = currentWeather.getCoord().getLon();
+                SecondaryWeather secondaryWeather = secondaryClient.getWeatherByGeolocation(configuration.getSecondaryApiKey(), lat, lng);
+                precip = secondaryWeather.getData().stream().max(Comparator.comparingDouble(SecondaryWeather.SecondaryWeatherData::getPrecip)).get().getPrecip();
+                snow = secondaryWeather.getData().stream().max(Comparator.comparingDouble(SecondaryWeather.SecondaryWeatherData::getSnow)).get().getPrecip();
+            }
+
+            currentWeather.setSnow(getMaxSnow(currentWeather, snow));
+            currentWeather.setRain(getMaxPrecip(currentWeather, precip));
+            weathers.set(i, currentWeather);
+            repository.save(currentWeather);
+        }
+
         try {
             mapper.writeValue(new File("weathercoords.json"), coords);
         } catch (IOException e) {
@@ -70,6 +93,38 @@ public class MapDetailsService {
 
     private double getDiffLong(){
         return Math.abs(configuration.getTopRightLong() - configuration.getBottomLeftLong()) / configuration.getChunkHighSize();
+    }
+
+    private Rain getMaxPrecip(Model200 currentW, double b){
+        BigDecimal a = BigDecimal.valueOf(0);
+
+        if(currentW.getRain() != null && currentW.getRain().get_3h() != null){
+            a = currentW.getRain().get_3h();
+        }else{
+            a = BigDecimal.valueOf(0);
+        }
+
+        if (a.doubleValue() != b){
+            return Rain.builder()._3h(BigDecimal.valueOf(Math.max(a.doubleValue(), b))).build();
+        }else{
+            return Rain.builder()._3h(a).build();
+        }
+    }
+
+    private Snow getMaxSnow(Model200 currentW, double b){
+        BigDecimal a = BigDecimal.valueOf(0);
+
+        if(currentW.getSnow() != null && currentW.getSnow().get_3h() != null){
+            a = currentW.getRain().get_3h();
+        }else{
+            a = BigDecimal.valueOf(0);
+        }
+
+        if (a.doubleValue() != b){
+            return Snow.builder()._3h(BigDecimal.valueOf(Math.max(a.doubleValue(), b))).build();
+        }else{
+            return Snow.builder()._3h(a).build();
+        }
     }
 /*
     private double getDistance(Location a, Location b){
