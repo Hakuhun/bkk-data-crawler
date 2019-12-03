@@ -7,6 +7,7 @@ import hu.oe.bakonyi.bkk.bkkweathercrawler.service.DefaultCoordinateService;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.service.MapDetailsService;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.configuration.WeatherConfiguration;
 import hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather.Model200;
+import hu.oe.bakonyi.bkk.bkkweathercrawler.service.RequestValidatorService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,21 +37,25 @@ public class WeatherController {
     @Autowired
     Model200Repository repository;
 
+    @Autowired
+    RequestValidatorService validatorService;
+
     ObjectMapper mapper = new ObjectMapper();
 
     @PostMapping("/prod/weather")
     public ResponseEntity<Model200> getWeatherByCoordinate(@RequestBody Coord coordinate){
+        validatorService.validateCoord(coordinate);
         Coord nearestCoord = coordinateService.getNearestCoordToChunk(coordinate);
-        Model200 weather1 = repository.findByCoordLatAndCoordLon(nearestCoord.getLat(), nearestCoord.getLon());
+        Model200 backupWeather = repository.findByCoordLatAndCoordLon(nearestCoord.getLat(), nearestCoord.getLon());
 
-        if (weather1 != null){
-                return ResponseEntity.ok(weather1);
+        if (backupWeather != null){
+                return ResponseEntity.ok(backupWeather);
         }else{
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/Dev/weathers")
+    @GetMapping("/dev/weathers")
     public ResponseEntity getWeathers(@RequestParam("time") String time){
         try {
             Instant nodeFileTime = Instant.ofEpochSecond(Long.parseLong(time));
@@ -70,7 +75,7 @@ public class WeatherController {
     }
 
     //http://localhost:8001/bkk/lastModified
-    @GetMapping("/lastModified")
+    @GetMapping("/dev/lastModified")
     public ResponseEntity getModifyTime(){
         try {
             Instant creationTime = service.getLastModoficationTime();
