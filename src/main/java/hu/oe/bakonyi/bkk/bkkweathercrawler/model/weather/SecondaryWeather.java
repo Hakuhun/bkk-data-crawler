@@ -14,5 +14,6 @@ public class SecondaryWeather {
     public static class SecondaryWeatherData{
         private double snow;
         private double precip;
+        private double vis;
     }
 }

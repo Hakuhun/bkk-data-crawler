@@ -1,0 +1,9 @@
+hu.oe.bakonyi.bkk.bkkweathercrawler
+hu.oe.bakonyi.bkk.bkkweathercrawler.client
+hu.oe.bakonyi.bkk.bkkweathercrawler.configuration
+hu.oe.bakonyi.bkk.bkkweathercrawler.controller
+hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather
+hu.oe.bakonyi.bkk.bkkweathercrawler.repository
+hu.oe.bakonyi.bkk.bkkweathercrawler.scheluder
+hu.oe.bakonyi.bkk.bkkweathercrawler.service
+hu.oe.bakonyi.bkk.bkkweathercrawler.service.model

@@ -51,10 +51,6 @@ scheulder:
   weatherScheduler: "0 0 * ? * *"
 
 weather:
-  #bottomLeftLat: 47.1523107
-  #bottomLeftLong: 18.8460594
-  #topRightLat: 47.6837053
-  #topRightLong: 19.391385500000002
   bottomLeftLat: 47.41
   bottomLeftLong: 18.97
   topRightLat: 47.6

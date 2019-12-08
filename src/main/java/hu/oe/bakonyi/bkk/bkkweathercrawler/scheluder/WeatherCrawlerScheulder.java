@@ -29,7 +29,6 @@ public class WeatherCrawlerScheulder {
     public void initialScheulde(){
         log.info("Inicializáló letöltés: ");
         download();
-
     }
 
     @Scheduled(cron = "${scheulder.weatherScheduler}")

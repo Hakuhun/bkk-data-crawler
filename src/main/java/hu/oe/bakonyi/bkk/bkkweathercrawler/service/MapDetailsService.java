@@ -61,6 +61,7 @@ public class MapDetailsService {
 
         double precip = 0.0;
         double snow = 0.0;
+        double visibility = 0.0;
 
         for (int i = 0; i < weathers.size(); i++){
             Model200 currentWeather = weathers.get(i);
@@ -69,7 +70,8 @@ public class MapDetailsService {
                 double lng = currentWeather.getCoord().getLon();
                 SecondaryWeather secondaryWeather = secondaryClient.getWeatherByGeolocation(configuration.getSecondaryApiKey(), lat, lng);
                 precip = secondaryWeather.getData().stream().max(Comparator.comparingDouble(SecondaryWeather.SecondaryWeatherData::getPrecip)).get().getPrecip();
-                snow = secondaryWeather.getData().stream().max(Comparator.comparingDouble(SecondaryWeather.SecondaryWeatherData::getSnow)).get().getPrecip();
+                snow = secondaryWeather.getData().stream().max(Comparator.comparingDouble(SecondaryWeather.SecondaryWeatherData::getSnow)).get().getSnow();
+                visibility = secondaryWeather.getData().stream().max(Comparator.comparingDouble(SecondaryWeather.SecondaryWeatherData::getVis)).get().getVis();
             }
 
             currentWeather.setSnow(getMaxSnow(currentWeather, snow));
@@ -124,6 +126,20 @@ public class MapDetailsService {
             return Snow.builder()._3h(BigDecimal.valueOf(Math.max(a.doubleValue(), b))).build();
         }else{
             return Snow.builder()._3h(a).build();
+        }
+    }
+
+    private double getMaxVisibility(Model200 currentW, double b){
+        int a = 0;
+
+        if(currentW.getVisibility() != null){
+            a = currentW.getVisibility();
+        }
+
+        if (a != b){
+            return Math.max(a, b);
+        }else{
+            return a;
         }
     }
 /*
