@@ -1,7 +1,9 @@
 package hu.oe.bakonyi.bkk.bkkweathercrawler.model.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.redis.core.RedisHash;
@@ -19,6 +21,8 @@ import java.util.UUID;
 @Data
 @Validated
 @RedisHash(value = "WEATHER", timeToLive = 7200000)
+@NoArgsConstructor
+@AllArgsConstructor
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-09-02T19:31:53.527Z[GMT]")
 public class Model200 implements Serializable {
 

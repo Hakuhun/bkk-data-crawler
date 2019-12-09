@@ -76,6 +76,7 @@ public class MapDetailsService {
 
             currentWeather.setSnow(getMaxSnow(currentWeather, snow));
             currentWeather.setRain(getMaxPrecip(currentWeather, precip));
+            currentWeather.setVisibility((int) getMaxVisibility(currentWeather, visibility));
             weathers.set(i, currentWeather);
             repository.save(currentWeather);
         }
@@ -130,14 +131,14 @@ public class MapDetailsService {
     }
 
     private double getMaxVisibility(Model200 currentW, double b){
-        int a = 0;
+        double a = 0;
 
         if(currentW.getVisibility() != null){
             a = currentW.getVisibility();
         }
 
         if (a != b){
-            return Math.max(a, b);
+            return Math.min(a, b);
         }else{
             return a;
         }
